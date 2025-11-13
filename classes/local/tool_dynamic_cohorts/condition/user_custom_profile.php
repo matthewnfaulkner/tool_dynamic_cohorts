@@ -58,6 +58,7 @@ class user_custom_profile extends user_profile {
             self::FIELD_DATA_TYPE_CHECKBOX,
             self::FIELD_DATA_TYPE_DATETIME,
             self::FIELD_DATA_TYPE_AUTOCOMPLETE,
+            self::FIELD_DATA_TYPE_CONDITIONAL,
         ];
     }
 
@@ -84,6 +85,7 @@ class user_custom_profile extends user_profile {
             );
 
             switch ($field->datatype) {
+                case self::FIELD_DATA_TYPE_CONDITIONAL:
                 case self::FIELD_DATA_TYPE_MENU:
                 case self::FIELD_DATA_TYPE_AUTOCOMPLETE:
                     $options = explode("\n", (string) $field->param1);
@@ -130,6 +132,7 @@ class user_custom_profile extends user_profile {
                 case self::FIELD_DATA_TYPE_TEXT:
                     $this->add_text_field($mform, $group, $field, $shortname);
                     break;
+                case self::FIELD_DATA_TYPE_CONDITIONAL:
                 case self::FIELD_DATA_TYPE_MENU:
                 case self::FIELD_DATA_TYPE_AUTOCOMPLETE:
                     $this->add_menu_field($mform, $group, $field, $shortname);
@@ -195,6 +198,7 @@ class user_custom_profile extends user_profile {
                 $result = $this->get_text_sql($ud, 'data');
                 break;
             case self::FIELD_DATA_TYPE_CHECKBOX:
+            case self::FIELD_DATA_TYPE_CONDITIONAL:
             case self::FIELD_DATA_TYPE_MENU:
                 $result = $this->get_menu_sql($ud, 'data');
                 break;
